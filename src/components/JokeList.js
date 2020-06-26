@@ -1,17 +1,24 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
+import { connect } from "react-redux";
 
 class JokeList extends Component {
-    state = {
-        jokeList: []
-    }
-    
-    render() {
-        return (
-            <div>
-                
-            </div>
-        )
-    }
-}
+  // state = {
+  //   jokeList: [],
+  // };
 
-export default JokeList
+  render() {
+    console.log(this.props);
+    return (
+      <div>
+        {this.props.jokeList.map((x) => (
+          <p key={x.id}>{x.joke}</p>
+        ))}
+      </div>
+    );
+  }
+}
+const mapStateToProps = (state) => {
+  console.log("state", state.joke);
+  return { jokeList: state.joke };
+};
+export default connect(mapStateToProps)(JokeList);
