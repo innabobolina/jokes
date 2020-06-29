@@ -9,12 +9,13 @@ import { createStore, applyMiddleware } from "redux";
 import rootReducer from "./reducers";
 // rootReducer is a combinedReducer is a whole state of the app
 import { composeWithDevTools } from "redux-devtools-extension";
+import thunk from "redux-thunk";
 
 const initialState = {};
 const store = createStore(
   rootReducer,
   initialState,
-  composeWithDevTools(applyMiddleware())
+  composeWithDevTools(applyMiddleware(thunk))
 );
 
 ReactDOM.render(
