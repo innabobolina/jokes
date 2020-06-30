@@ -4,17 +4,17 @@ const initialState = [
 ];
 
 export default (state = initialState, action) => {
+    const { payload } = action;
     switch (action.type) {
         case "GET_JOKES":
-            const { payload } = action;
-
             return [...state, ...payload];
 
         case "ADD_ONE_JOKE":
             console.log("action", action);
             const newState = [...state, action.payload];
             return newState;
-
+        case "ADD_JOKES":
+            return [...state, ...payload];
         default:
             return state;
     }

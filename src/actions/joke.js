@@ -36,3 +36,22 @@ export const addOneJoke = () => async(dispatch) => {
         payload: { id, joke },
     });
 };
+export const addJokes = (number) => async(dispatch) => {
+    let jokeArr = [];
+    for (let i = 0; i < number; i++) {
+        const response = await axios.get("https://icanhazdadjoke.com/", {
+            headers: {
+                Accept: "application/json",
+            },
+        });
+        const { id, joke } = response.data;
+        jokeArr.push({ id, joke });
+    }
+
+    // console.log("response", response);
+    console.log(jokeArr);
+    dispatch({
+        type: "ADD_JOKES",
+        payload: jokeArr,
+    });
+};

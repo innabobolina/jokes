@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getJokes, addOneJoke } from "../actions/joke";
+import { getJokes, addOneJoke, addJokes } from "../actions/joke";
 
 class JokeList extends Component {
   // state = {
@@ -12,14 +12,20 @@ class JokeList extends Component {
 
   render() {
     console.log(this.props);
-    const { jokeList, addJoke, addOneJoke } = this.props;
+    const { jokeList, addJoke, addOneJoke, addJokes } = this.props;
     return (
       <div>
-        {this.props.jokeList.map((x) => (
-          <p key={x.id}>{x.joke}</p>
+        {this.props.jokeList.map((x, i) => (
+          <p key={x.id}>
+            {i + 1}. {x.joke}
+          </p>
         ))}
         <button onClick={() => addOneJoke()}>Add 1 more joke</button>
         {/* <button onClick={addOneJoke}>Add joke</button> */}
+        <select onChange={() => addJokes(2)}>
+          <option>Add 2 jokes</option>
+          <option>Add 5 jokes</option>
+        </select>
       </div>
     );
   }
@@ -29,5 +35,5 @@ const mapStateToProps = (state) => {
   return { jokeList: state.joke };
 };
 
-const mapDispatch = { getJokes, addOneJoke };
+const mapDispatch = { getJokes, addOneJoke, addJokes };
 export default connect(mapStateToProps, mapDispatch)(JokeList);
