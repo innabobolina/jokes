@@ -8,10 +8,10 @@ export default (state = initialState, action) => {
         case "GET_JOKES":
             const { payload } = action;
 
-            return [...state, payload];
+            return [...state, ...payload];
 
-        case "ADD_JOKE":
-            console.log(action);
+        case "ADD_ONE_JOKE":
+            console.log("action", action);
             const newState = [...state, action.payload];
             return newState;
 
