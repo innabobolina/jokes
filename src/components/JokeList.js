@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import { getJokes, addOneJoke, addJokes } from "../actions/joke";
 
 class JokeList extends Component {
-  // state = {
-  //   jokeList: [],
-  // };
+  state = {
+    jokeQuantity: 0,
+  };
   componentDidMount() {
     this.props.getJokes();
   }
@@ -22,9 +22,9 @@ class JokeList extends Component {
         ))}
         <button onClick={() => addOneJoke()}>Add 1 more joke</button>
         {/* <button onClick={addOneJoke}>Add joke</button> */}
-        <select onChange={() => addJokes(2)}>
-          <option>Add 2 jokes</option>
-          <option>Add 5 jokes</option>
+        <select onChange={(e) => addJokes(e.target.value)}>
+          <option value="2">Add 2 jokes</option>
+          <option value="5">Add 5 jokes</option>
         </select>
       </div>
     );
