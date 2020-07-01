@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getJokes, addOneJoke, addJokes } from "../actions/joke";
+import ClipLoader from "react-spinners/ClipLoader";
+import PacmanLoader from "react-spinners/PacmanLoader";
 
 class JokeList extends Component {
   state = {
@@ -12,10 +14,11 @@ class JokeList extends Component {
 
   render() {
     console.log(this.props);
-    const { jokeList, addJoke, addOneJoke, addJokes } = this.props;
+    const { jokeList, addJoke, addOneJoke, addJokes, loading } = this.props;
     return (
       <div>
-        {this.props.jokeList.map((x, i) => (
+        <PacmanLoader size={150} color={"#123abc"} loading={loading} />
+        {jokeList.map((x, i) => (
           <p key={x.id}>
             {i + 1}. {x.joke}
           </p>
@@ -32,7 +35,7 @@ class JokeList extends Component {
 }
 const mapStateToProps = (state) => {
   console.log("state", state.joke);
-  return { jokeList: state.joke };
+  return { jokeList: state.joke, loading: state.loading.isLoading };
 };
 
 const mapDispatch = { getJokes, addOneJoke, addJokes };

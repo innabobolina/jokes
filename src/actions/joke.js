@@ -3,6 +3,7 @@ import axios from "axios";
 // actions dispatch data to reducers immediately but we need some time to get data from API
 // need meddleware to handle the response
 export const getJokes = () => async(dispatch) => {
+    dispatch({ type: "SHOW_LOADING" });
     let count = 0;
     let arrJokes = [];
     while (count < 10) {
@@ -20,6 +21,9 @@ export const getJokes = () => async(dispatch) => {
     dispatch({
         type: "GET_JOKES",
         payload: arrJokes,
+    });
+    dispatch({
+        type: "HIDE_LOADING",
     });
 };
 
