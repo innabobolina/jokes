@@ -41,6 +41,10 @@ export const addOneJoke = () => async(dispatch) => {
     });
 };
 export const addJokes = (number) => async(dispatch) => {
+    dispatch({
+        type: "SHOW_LOADING",
+    });
+
     let jokeArr = [];
     for (let i = 0; i < number; i++) {
         const response = await axios.get("https://icanhazdadjoke.com/", {
@@ -57,5 +61,9 @@ export const addJokes = (number) => async(dispatch) => {
     dispatch({
         type: "ADD_JOKES",
         payload: jokeArr,
+    });
+
+    dispatch({
+        type: "HIDE_LOADING",
     });
 };

@@ -1,6 +1,6 @@
 const initialState = [
-    { id: 1, joke: "hahah" },
-    { id: 2, joke: "ha" },
+    // { id: 1, joke: "hahah" },
+    // { id: 2, joke: "ha" },
 ];
 
 export default (state = initialState, action) => {
