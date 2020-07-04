@@ -13,7 +13,16 @@ export const getJokes = () => async(dispatch) => {
             },
         });
         const { id, joke } = response.data;
-        arrJokes.push({ id, joke });
+        const imageResponse = await axios.get(
+            `https://icanhazdadjoke.com/j/${id}.png`, {
+                headers: {
+                    Accept: "application/json",
+                },
+            }
+        );
+        console.log(imageResponse);
+
+        arrJokes.push({ id, joke, score: 0, image: imageResponse.data });
         count++;
     }
     console.log(arrJokes);
@@ -65,5 +74,12 @@ export const addJokes = (number) => async(dispatch) => {
 
     dispatch({
         type: "HIDE_LOADING",
+    });
+};
+
+export const increaseVote = (id) => async(dispatch) => {
+    dispatch({
+        type: "INCREASE_VOTE",
+        payload: id,
     });
 };

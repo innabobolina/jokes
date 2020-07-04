@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getJokes, addOneJoke, addJokes } from "../actions/joke";
+import { getJokes, addOneJoke, addJokes, increaseVote } from "../actions/joke";
 import ClipLoader from "react-spinners/ClipLoader";
 import PacmanLoader from "react-spinners/PacmanLoader";
 
@@ -14,14 +14,32 @@ class JokeList extends Component {
 
   render() {
     //console.log(this.state.jokeQuantity);
-    const { jokeList, addJoke, addOneJoke, addJokes, loading } = this.props;
+    const {
+      jokeList,
+      addJoke,
+      addOneJoke,
+      addJokes,
+      loading,
+      increaseVote,
+    } = this.props;
     return (
       <div>
         <PacmanLoader size={150} color={"#123abc"} loading={loading} />
         {jokeList.map((x, i) => (
-          <p key={x.id}>
-            {i + 1}. {x.joke}
-          </p>
+          <div style={{ margin: 10 }} key={x.id}>
+            <p key={x.id}>
+              {i + 1}. {x.joke}
+              <button
+                onClick={() => {
+                  increaseVote(x.id);
+                }}
+              >
+                UP
+              </button>
+              <button onClick={() => {}}>DOWN</button>
+              {/* <img src={x.image}></img> */}
+            </p>
+          </div>
         ))}
         <button onClick={() => addOneJoke()}>Add 1 more joke</button>
         {/* <button onClick={addOneJoke}>Add joke</button> */}
@@ -42,5 +60,5 @@ const mapStateToProps = (state) => {
   return { jokeList: state.joke, loading: state.loading.isLoading };
 };
 
-const mapDispatch = { getJokes, addOneJoke, addJokes };
-export default connect(mapStateToProps, mapDispatch)(JokeList);
+const mapDispatchToProps = { getJokes, addOneJoke, addJokes, increaseVote };
+export default connect(mapStateToProps, mapDispatchToProps)(JokeList);

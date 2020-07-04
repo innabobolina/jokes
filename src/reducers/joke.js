@@ -15,6 +15,18 @@ export default (state = initialState, action) => {
             return newState;
         case "ADD_JOKES":
             return [...state, ...payload];
+
+        case "INCREASE_VOTE":
+            let oldState = [...state];
+            // oldState.find((x) => x.id === payload);
+            let secondState = oldState.map((x) => {
+                if (x.id === payload) {
+                    x.score++;
+                }
+                return x;
+            });
+            return secondState;
+
         default:
             return state;
     }
