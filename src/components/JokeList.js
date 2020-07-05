@@ -25,22 +25,25 @@ class JokeList extends Component {
     return (
       <div>
         <PacmanLoader size={150} color={"#123abc"} loading={loading} />
-        {jokeList.map((x, i) => (
-          <div style={{ margin: 10 }} key={x.id}>
-            <p key={x.id}>
-              {i + 1}. {x.joke}
-              <button
-                onClick={() => {
-                  increaseVote(x.id);
-                }}
-              >
-                UP
-              </button>
-              <button onClick={() => {}}>DOWN</button>
-              {/* <img src={x.image}></img> */}
-            </p>
-          </div>
-        ))}
+        {jokeList
+          .sort((a, b) => b.score - a.score)
+          .map((x, i) => (
+            <div style={{ margin: 10 }} key={x.id}>
+              <p key={x.id}>
+                {i + 1}. {x.joke}
+                <button
+                  onClick={() => {
+                    increaseVote(x.id);
+                  }}
+                >
+                  UP
+                </button>
+                <button onClick={() => {}}>DOWN</button>
+                {/* <img src={x.image}></img> */}
+                <span>SCORE: {x.score}</span>
+              </p>
+            </div>
+          ))}
         <button onClick={() => addOneJoke()}>Add 1 more joke</button>
         {/* <button onClick={addOneJoke}>Add joke</button> */}
         <select

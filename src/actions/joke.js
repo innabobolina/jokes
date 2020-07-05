@@ -46,7 +46,7 @@ export const addOneJoke = () => async(dispatch) => {
     const { id, joke } = response.data;
     dispatch({
         type: "ADD_ONE_JOKE",
-        payload: { id, joke },
+        payload: { id, joke, score: 0 },
     });
 };
 export const addJokes = (number) => async(dispatch) => {
@@ -62,7 +62,7 @@ export const addJokes = (number) => async(dispatch) => {
             },
         });
         const { id, joke } = response.data;
-        jokeArr.push({ id, joke });
+        jokeArr.push({ id, joke, score: 0 });
     }
 
     // console.log("response", response);
