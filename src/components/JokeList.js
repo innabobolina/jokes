@@ -11,16 +11,22 @@ import ClipLoader from "react-spinners/ClipLoader";
 import PacmanLoader from "react-spinners/PacmanLoader";
 
 class JokeList extends Component {
-  // state = {
-  //   jokeQuantity: 0,
-  // };
+  state = {
+    orderIncrease: true,
+  };
+
   componentDidMount() {
     this.props.getJokes();
   }
+  handleReverseJokes = () => {
+    this.setState({ orderIncrease: !this.state.orderIncrease });
+    // let { jokeList } = this.props;
+    // jokeList = jokeList.sort((a, b) => a.score - b.score);
+    // return jokeList;
+  };
 
   render() {
-    //console.log(this.state.jokeQuantity);
-    const {
+    let {
       jokeList,
       addJoke,
       addOneJoke,
@@ -29,34 +35,37 @@ class JokeList extends Component {
       increaseVote,
       decreaseVote,
     } = this.props;
+    jokeList = jokeList.sort((a, b) => b.score - a.score);
+    if (this.state.orderIncrease) {
+      jokeList = jokeList.sort((a, b) => a.score - b.score);
+    }
+    console.log(this.state);
     return (
       <div>
         <PacmanLoader size={150} color={"#123abc"} loading={loading} />
-        {jokeList
-          .sort((a, b) => b.score - a.score)
-          .map((x, i) => (
-            <div style={{ margin: 10 }} key={x.id}>
-              <p key={x.id}>
-                {i + 1}. {x.joke}
-                <button
-                  onClick={() => {
-                    increaseVote(x.id);
-                  }}
-                >
-                  UP
-                </button>
-                <button
-                  onClick={() => {
-                    decreaseVote(x.id);
-                  }}
-                >
-                  DOWN
-                </button>
-                {/* <img src={x.image}></img> */}
-                <span>SCORE: {x.score}</span>
-              </p>
-            </div>
-          ))}
+        {jokeList.map((x, i) => (
+          <div style={{ margin: 10 }} key={x.id}>
+            <p key={x.id}>
+              {i + 1}. {x.joke}
+              <button
+                onClick={() => {
+                  increaseVote(x.id);
+                }}
+              >
+                UP
+              </button>
+              <button
+                onClick={() => {
+                  decreaseVote(x.id);
+                }}
+              >
+                DOWN
+              </button>
+              {/* <img src={x.image}></img> */}
+              <span>SCORE: {x.score}</span>
+            </p>
+          </div>
+        ))}
         <button onClick={() => addOneJoke()}>Add 1 more joke</button>
         {/* <button onClick={addOneJoke}>Add joke</button> */}
         <select
@@ -67,7 +76,13 @@ class JokeList extends Component {
           <option value="2">Add 2 jokes</option>
           <option value="5">Add 5 jokes</option>
         </select>
-        <button onClick={() => {}}>Reverse the order of jokes</button>
+        <button
+          onClick={() => {
+            this.handleReverseJokes();
+          }}
+        >
+          Reverse the order of jokes
+        </button>
       </div>
     );
   }
