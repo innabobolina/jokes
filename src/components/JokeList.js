@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getJokes, addOneJoke, addJokes, increaseVote } from "../actions/joke";
+import {
+  getJokes,
+  addOneJoke,
+  addJokes,
+  increaseVote,
+  decreaseVote,
+} from "../actions/joke";
 import ClipLoader from "react-spinners/ClipLoader";
 import PacmanLoader from "react-spinners/PacmanLoader";
 
@@ -21,6 +27,7 @@ class JokeList extends Component {
       addJokes,
       loading,
       increaseVote,
+      decreaseVote,
     } = this.props;
     return (
       <div>
@@ -38,7 +45,13 @@ class JokeList extends Component {
                 >
                   UP
                 </button>
-                <button onClick={() => {}}>DOWN</button>
+                <button
+                  onClick={() => {
+                    decreaseVote(x.id);
+                  }}
+                >
+                  DOWN
+                </button>
                 {/* <img src={x.image}></img> */}
                 <span>SCORE: {x.score}</span>
               </p>
@@ -63,5 +76,11 @@ const mapStateToProps = (state) => {
   return { jokeList: state.joke, loading: state.loading.isLoading };
 };
 
-const mapDispatchToProps = { getJokes, addOneJoke, addJokes, increaseVote };
+const mapDispatchToProps = {
+  getJokes,
+  addOneJoke,
+  addJokes,
+  increaseVote,
+  decreaseVote,
+};
 export default connect(mapStateToProps, mapDispatchToProps)(JokeList);

@@ -27,6 +27,22 @@ export default (state = initialState, action) => {
             });
             return secondState;
 
+        case "DECREASE_VOTE":
+            // let oldState = [...state];
+            // let secondState = oldState.map((x) => {
+            //     if (x.id === payload) {
+            //         x.score--;
+            //     }
+            //     return x;
+            // });
+            // return secondState;
+            return [...state].map((x) => {
+                if (x.id === payload) {
+                    x.score--;
+                }
+                return x;
+            });
+
         default:
             return state;
     }
