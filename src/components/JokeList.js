@@ -67,6 +67,7 @@ class JokeList extends Component {
           <option value="2">Add 2 jokes</option>
           <option value="5">Add 5 jokes</option>
         </select>
+        <button onClick={() => {}}>Reverse the order of jokes</button>
       </div>
     );
   }
