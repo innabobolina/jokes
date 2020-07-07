@@ -13,7 +13,9 @@ export default (state = initialState, action) => {
             console.log("action", action);
             const newState = [...state, action.payload];
             return newState;
+
         case "ADD_JOKES":
+            // old state, payload (jokelist from api)
             return [...state, ...payload];
 
         case "INCREASE_VOTE":
@@ -34,6 +36,10 @@ export default (state = initialState, action) => {
                 }
                 return x;
             });
+        case "HANDLE_SEARCH":
+            console.log("payload-new state", payload);
+            console.log("old state", state);
+            return payload;
 
         default:
             return state;

@@ -96,3 +96,18 @@ export const decreaseVote = (id) => async(dispatch) => {
         payload: { id, getRandomNumberFrom1To5: getRandomNumberFrom1To5() },
     });
 };
+
+export const handleSearch = (searchTerm) => async(dispatch) => {
+    const response = await axios.get(
+        `https://icanhazdadjoke.com/search?term=${searchTerm}`, {
+            headers: {
+                Accept: "application/json",
+            },
+        }
+    );
+    console.log(response.data.results);
+    dispatch({
+        type: "HANDLE_SEARCH",
+        payload: response.data.results,
+    });
+};

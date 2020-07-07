@@ -6,6 +6,7 @@ import {
   addJokes,
   increaseVote,
   decreaseVote,
+  handleSearch,
 } from "../actions/joke";
 import ClipLoader from "react-spinners/ClipLoader";
 import PacmanLoader from "react-spinners/PacmanLoader";
@@ -35,6 +36,7 @@ class JokeList extends Component {
       loading,
       increaseVote,
       decreaseVote,
+      handleSearch,
     } = this.props;
 
     jokeList = jokeList.sort((a, b) => b.score - a.score);
@@ -45,7 +47,9 @@ class JokeList extends Component {
     return (
       <div>
         <PacmanLoader size={150} color={"magenta"} loading={loading} />
-        <SearchForm />
+
+        <SearchForm onSearch={handleSearch} />
+
         {jokeList.map((x, i) => (
           <div style={{ margin: 10 }} key={x.id}>
             <p key={x.id}>
@@ -101,5 +105,6 @@ const mapDispatchToProps = {
   addJokes,
   increaseVote,
   decreaseVote,
+  handleSearch,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(JokeList);
