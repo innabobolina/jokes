@@ -3,7 +3,7 @@ import axios from "axios";
 // actions dispatch data to reducers immediately but we need some time to get data from API
 // need meddleware to handle the response
 
-const getRandomNumberFrom0To5 = () => Math.floor(Math.random() * 5);
+const getRandomNumberFrom1To5 = () => Math.floor(Math.random() * 5) + 1;
 export const getJokes = () => async(dispatch) => {
     dispatch({ type: "SHOW_LOADING" });
     let count = 0;
@@ -15,19 +15,19 @@ export const getJokes = () => async(dispatch) => {
             },
         });
         const { id, joke } = response.data;
-        const imageResponse = await axios.get(
-            `https://icanhazdadjoke.com/j/${id}.png`, {
-                headers: {
-                    Accept: "application/json",
-                },
-            }
-        );
+        // const imageResponse = await axios.get(
+        //     `https://icanhazdadjoke.com/j/${id}.png`, {
+        //         headers: {
+        //             Accept: "application/json",
+        //         },
+        //     }
+        // );
 
         arrJokes.push({
             id,
             joke,
             score: 0,
-            image: imageResponse.data,
+            // image: imageResponse.data,
         });
         count++;
     }
@@ -86,13 +86,13 @@ export const addJokes = (number) => async(dispatch) => {
 export const increaseVote = (id) => async(dispatch) => {
     dispatch({
         type: "INCREASE_VOTE",
-        payload: { id, getRandomNumberFrom0To5: getRandomNumberFrom0To5() },
+        payload: { id, getRandomNumberFrom1To5: getRandomNumberFrom1To5() },
     });
 };
 
 export const decreaseVote = (id) => async(dispatch) => {
     dispatch({
         type: "DECREASE_VOTE",
-        payload: { id, getRandomNumberFrom0To5: getRandomNumberFrom0To5() },
+        payload: { id, getRandomNumberFrom1To5: getRandomNumberFrom1To5() },
     });
 };

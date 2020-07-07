@@ -9,10 +9,11 @@ import {
 } from "../actions/joke";
 import ClipLoader from "react-spinners/ClipLoader";
 import PacmanLoader from "react-spinners/PacmanLoader";
-
+import { findAllByDisplayValue } from "@testing-library/react";
+import SearchForm from "./SearchForm";
 class JokeList extends Component {
   state = {
-    orderIncrease: true,
+    orderIncrease: findAllByDisplayValue,
   };
 
   componentDidMount() {
@@ -35,6 +36,7 @@ class JokeList extends Component {
       increaseVote,
       decreaseVote,
     } = this.props;
+
     jokeList = jokeList.sort((a, b) => b.score - a.score);
     if (this.state.orderIncrease) {
       jokeList = jokeList.sort((a, b) => a.score - b.score);
@@ -42,7 +44,8 @@ class JokeList extends Component {
     console.log(this.state);
     return (
       <div>
-        <PacmanLoader size={150} color={"#123abc"} loading={loading} />
+        <PacmanLoader size={150} color={"magenta"} loading={loading} />
+        <SearchForm />
         {jokeList.map((x, i) => (
           <div style={{ margin: 10 }} key={x.id}>
             <p key={x.id}>

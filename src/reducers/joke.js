@@ -21,24 +21,16 @@ export default (state = initialState, action) => {
             // oldState.find((x) => x.id === payload);
             let secondState = oldState.map((x) => {
                 if (x.id === payload.id) {
-                    x.score = x.score + payload.getRandomNumberFrom0To5;
+                    x.score = x.score + payload.getRandomNumberFrom1To5;
                 }
                 return x;
             });
             return secondState;
 
         case "DECREASE_VOTE":
-            // let oldState = [...state];
-            // let secondState = oldState.map((x) => {
-            //     if (x.id === payload) {
-            //         x.score--;
-            //     }
-            //     return x;
-            // });
-            // return secondState;
             return [...state].map((x) => {
-                if (x.id === payload) {
-                    x.score--;
+                if (x.id === payload.id) {
+                    x.score = x.score - payload.getRandomNumberFrom1To5;
                 }
                 return x;
             });
