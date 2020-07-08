@@ -4,7 +4,9 @@ const initialState = [
 ];
 
 export default (state = initialState, action) => {
-    const { payload } = action;
+    const {
+        payload
+    } = action;
     switch (action.type) {
         case "GET_JOKES":
             return [...state, ...payload];
@@ -39,7 +41,7 @@ export default (state = initialState, action) => {
         case "HANDLE_SEARCH":
             console.log("payload-new state", payload);
             console.log("old state", state);
-            return payload;
+            return payload.searchResults;
 
         default:
             return state;

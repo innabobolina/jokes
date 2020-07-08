@@ -12,6 +12,8 @@ import ClipLoader from "react-spinners/ClipLoader";
 import PacmanLoader from "react-spinners/PacmanLoader";
 import { findAllByDisplayValue } from "@testing-library/react";
 import SearchForm from "./SearchForm";
+import { Pagination } from 'semantic-ui-react'
+
 class JokeList extends Component {
   state = {
     orderIncrease: findAllByDisplayValue,
@@ -36,14 +38,14 @@ class JokeList extends Component {
       loading,
       increaseVote,
       decreaseVote,
-      handleSearch,
+      handleSearch, jokeNumber
     } = this.props;
 
     jokeList = jokeList.sort((a, b) => b.score - a.score);
     if (this.state.orderIncrease) {
       jokeList = jokeList.sort((a, b) => a.score - b.score);
     }
-    console.log(this.state);
+    // console.log(this.state);
     return (
       <div>
         <PacmanLoader size={150} color={"magenta"} loading={loading} />
@@ -90,13 +92,16 @@ class JokeList extends Component {
         >
           Reverse the order of jokes
         </button>
+        <div>
+          <Pagination defaultActivePage={1} totalPages={Math.ceil(jokeNumber / 10)} />
+        </div>
       </div>
     );
   }
 }
 const mapStateToProps = (state) => {
   console.log("state", state.joke);
-  return { jokeList: state.joke, loading: state.loading.isLoading };
+  return { jokeList: state.joke, loading: state.loading.isLoading, jokeNumber: state.pagination.totalJokes };
 };
 
 const mapDispatchToProps = {

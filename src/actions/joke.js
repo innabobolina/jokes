@@ -5,7 +5,9 @@ import axios from "axios";
 
 const getRandomNumberFrom1To5 = () => Math.floor(Math.random() * 5) + 1;
 export const getJokes = () => async(dispatch) => {
-    dispatch({ type: "SHOW_LOADING" });
+    dispatch({
+        type: "SHOW_LOADING"
+    });
     let count = 0;
     let arrJokes = [];
     while (count < 10) {
@@ -14,7 +16,10 @@ export const getJokes = () => async(dispatch) => {
                 Accept: "application/json",
             },
         });
-        const { id, joke } = response.data;
+        const {
+            id,
+            joke
+        } = response.data;
         // const imageResponse = await axios.get(
         //     `https://icanhazdadjoke.com/j/${id}.png`, {
         //         headers: {
@@ -49,10 +54,17 @@ export const addOneJoke = () => async(dispatch) => {
         },
     });
     // console.log("response", response);
-    const { id, joke } = response.data;
+    const {
+        id,
+        joke
+    } = response.data;
     dispatch({
         type: "ADD_ONE_JOKE",
-        payload: { id, joke, score: 0 },
+        payload: {
+            id,
+            joke,
+            score: 0
+        },
     });
 };
 export const addJokes = (number) => async(dispatch) => {
@@ -67,8 +79,15 @@ export const addJokes = (number) => async(dispatch) => {
                 Accept: "application/json",
             },
         });
-        const { id, joke } = response.data;
-        jokeArr.push({ id, joke, score: 0 });
+        const {
+            id,
+            joke
+        } = response.data;
+        jokeArr.push({
+            id,
+            joke,
+            score: 0
+        });
     }
 
     // console.log("response", response);
@@ -86,28 +105,45 @@ export const addJokes = (number) => async(dispatch) => {
 export const increaseVote = (id) => async(dispatch) => {
     dispatch({
         type: "INCREASE_VOTE",
-        payload: { id, getRandomNumberFrom1To5: getRandomNumberFrom1To5() },
+        payload: {
+            id,
+            getRandomNumberFrom1To5: getRandomNumberFrom1To5()
+        },
     });
 };
 
 export const decreaseVote = (id) => async(dispatch) => {
     dispatch({
         type: "DECREASE_VOTE",
-        payload: { id, getRandomNumberFrom1To5: getRandomNumberFrom1To5() },
+        payload: {
+            id,
+            getRandomNumberFrom1To5: getRandomNumberFrom1To5()
+        },
     });
 };
 
 export const handleSearch = (searchTerm) => async(dispatch) => {
+    const limit = 10;
     const response = await axios.get(
-        `https://icanhazdadjoke.com/search?term=${searchTerm}`, {
+        `https://icanhazdadjoke.com/search?term=${searchTerm}&limit=${limit}`, {
             headers: {
                 Accept: "application/json",
             },
         }
     );
+    const totalJokes = response.data.total_jokes
+    const responses = response.data.results
     console.log(response.data.results);
+
+    const searchResults = responses.map(item => ({
+        ...item,
+        score: 0
+    }))
     dispatch({
         type: "HANDLE_SEARCH",
-        payload: response.data.results,
+        payload: {
+            searchResults,
+            totalJokes
+        },
     });
 };
