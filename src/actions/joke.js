@@ -122,10 +122,10 @@ export const decreaseVote = (id) => async(dispatch) => {
     });
 };
 
-export const handleSearch = (searchTerm) => async(dispatch) => {
-    const limit = 10;
+export const handleSearch = (searchTerm, activePage) => async(dispatch) => {
+    const limit = 5;
     const response = await axios.get(
-        `https://icanhazdadjoke.com/search?term=${searchTerm}&limit=${limit}`, {
+        `https://icanhazdadjoke.com/search?term=${searchTerm}&limit=${limit}&page=${activePage}`, {
             headers: {
                 Accept: "application/json",
             },

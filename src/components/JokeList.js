@@ -16,7 +16,9 @@ import { Pagination } from 'semantic-ui-react'
 
 class JokeList extends Component {
   state = {
-    orderIncrease: findAllByDisplayValue,
+    orderIncrease: false,
+    activePage: 1,
+    searchTerm: ''
   };
 
   componentDidMount() {
@@ -28,6 +30,18 @@ class JokeList extends Component {
     // jokeList = jokeList.sort((a, b) => a.score - b.score);
     // return jokeList;
   };
+
+  handlePageChange = async (event, data) => {
+    console.log('event', event);
+    console.log('data', data.activePage);
+    await this.setState({ activePage: data.activePage })
+    this.props.handleSearch(this.state.searchTerm, data.activePage)
+  }
+
+  handleOnSearch = (searchTerm) => {
+
+    this.setState({ searchTerm })
+  }
 
   render() {
     let {
@@ -41,16 +55,22 @@ class JokeList extends Component {
       handleSearch, jokeNumber
     } = this.props;
 
+    const { activePage } = this.state;
+
     jokeList = jokeList.sort((a, b) => b.score - a.score);
     if (this.state.orderIncrease) {
       jokeList = jokeList.sort((a, b) => a.score - b.score);
     }
     // console.log(this.state);
+    const limit = 5;
+    const jokeIndex = limit * (activePage - 1) + 1
     return (
       <div>
         <PacmanLoader size={150} color={"magenta"} loading={loading} />
 
-        <SearchForm onSearch={handleSearch} />
+        <SearchForm
+          onSearch={handleSearch}
+          onSearchTerm={this.handleOnSearch} />
 
         {jokeList.map((x, i) => (
           <div style={{ margin: 10 }} key={x.id}>
@@ -93,12 +113,16 @@ class JokeList extends Component {
           Reverse the order of jokes
         </button>
         <div>
-          <Pagination defaultActivePage={1} totalPages={Math.ceil(jokeNumber / 10)} />
+          <Pagination defaultActivePage={1} totalPages={Math.ceil(jokeNumber / limit)}
+            onPageChange={this.handlePageChange}
+            activePage={this.state.activePage}
+          />
         </div>
       </div>
-    );
+    )
   }
 }
+
 const mapStateToProps = (state) => {
   console.log("state", state.joke);
   return { jokeList: state.joke, loading: state.loading.isLoading, jokeNumber: state.pagination.totalJokes };

@@ -11,9 +11,12 @@ class SearchForm extends Component {
   };
 
   handleSubmit = (e) => {
+    console.log(e)
     e.preventDefault();
     this.props.onSearch(this.state.searchTerm);
-    console.log(this.state);
+
+    this.props.onSearchTerm(this.state.searchTerm)
+    // console.log(this.state);
   };
 
   render() {
@@ -21,10 +24,11 @@ class SearchForm extends Component {
       <form onSubmit={this.handleSubmit}>
         <input
           type="text"
+
           value={this.state.searchTerm}
           onChange={(e) => this.handleChange(e)}
-        ></input>{" "}
-        <button> Submit </button>{" "}
+        ></input>
+        <button > Submit </button>
       </form>
     );
   }
