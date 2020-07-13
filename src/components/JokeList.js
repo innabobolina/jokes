@@ -64,6 +64,7 @@ class JokeList extends Component {
     // console.log(this.state);
     const limit = 5;
     const jokeIndex = limit * (activePage - 1) + 1
+
     return (
       <div>
         <PacmanLoader size={150} color={"magenta"} loading={loading} />
@@ -75,7 +76,7 @@ class JokeList extends Component {
         {jokeList.map((x, i) => (
           <div style={{ margin: 10 }} key={x.id}>
             <p key={x.id}>
-              {i + 1}. {x.joke}
+              {jokeIndex + i}. {x.joke}
               <button
                 onClick={() => {
                   increaseVote(x.id);
