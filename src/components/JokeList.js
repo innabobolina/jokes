@@ -12,7 +12,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import PacmanLoader from "react-spinners/PacmanLoader";
 import { findAllByDisplayValue } from "@testing-library/react";
 import SearchForm from "./SearchForm";
-import { Pagination } from 'semantic-ui-react'
+import { Pagination, Item } from 'semantic-ui-react'
 
 class JokeList extends Component {
   state = {
@@ -93,6 +93,10 @@ class JokeList extends Component {
               </button>
               {/* <img src={x.image}></img> */}
               <span>SCORE: {x.score}</span>
+              {x.score === 0 && <i className="em em-neutral_face"></i>}
+              {x.score < 0 && <i className="em em-angry"></i>}
+              {x.score === 1 && <i className="em em-smiley"></i>}
+              {x.score > 1 && <i className="em em-laughing"></i>}
             </p>
           </div>
         ))}
